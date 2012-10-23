@@ -1,0 +1,93 @@
+{% extends "blogcore.html" %}
+
+{% block content %}
+<div id="field">
+{% if not post %}
+{% for item in data %}
+<div id="postbox">
+<div id="{{item.category|slugify}}">
+<a href="/alpha/posting/{{item.slug}}">{{item.title}}</a>
+</div>
+<div id="date">
+{{item.date|date:"D, j M y - H:i"}}
+</div>
+<div id="content">
+{% autoescape off %}
+<br>{{item.content|linebreaksbr}}
+{% endautoescape %}
+</div>
+<br><a href="/alpha/posting/{{item.slug}}">{{item.commentcount}} Comment{{item.commentcount|pluralize}}</a>
+ | Tags:
+{% for test in item.tags.all %}
+<a href="/alpha/tag/{{test.tag|slugify}}">{{test.tag}}</a>{% if not forloop.last %},{% endif %} 
+{% endfor %}
+<br>&nbsp;
+
+</div>
+<br><br>
+{% endfor %}
+{% if nextpage %}
+<a href="/alpha/page/{{nextpage}}"><h3>Older Posts</h3></a>
+{% endif %}
+{% endif %}
+
+
+{% if post %}
+{% for item in data %}
+<div id="postbox">
+<div id="{{item.category}}">
+<a href="/alpha/posting/{{item.slug}}">{{item.title}}</a>
+</div>
+{{item.date|date:"D, j M y - H:i"}}
+<div id="content">
+{% autoescape off %}
+<br>{{item.content|linebreaksbr}}
+{% endautoescape %}
+</div>
+<br>Tagged as: 
+{% for test in item.tags.all %}
+<a href="/alpha/tag/{{test.tag|slugify}}">{{test.tag}}</a>{% if not forloop.last %},{% endif %}
+{% endfor %}
+{% endfor %}
+<hr>
+{% if comments %}
+Comments:
+<div id="content">
+{% for comment in comments %}
+<br>{{comment.date|date:"D, j M y - H:i"}}:<br>
+{{comment.content|linebreaksbr}}<br>
+{% endfor %}
+</div>
+{% endif %}
+<br><br>
+<form name="postform" action="." method="post" id="postform">
+<h3>Add your comment!</h3>
+<table>
+<tr><td>Message:</td><td><textarea name="postcontent" maxLength=2500 rows="8" cols="80"></textarea></td></tr>
+</table>
+<input type="submit" value="Post your Comment">
+</form>
+{% endif %}
+
+{% if searchtitle or searchtext %}
+<h2>Query results:</h2>
+{% if searchtitle %}
+<b>Title Matches:</b><br>
+{% endif %}
+{% for s_title in searchtitle %}
+{{s_title.date|date:"D, j M y - H:m"}}
+<br><a href="/alpha/posting/{{s_title.slug}}">{{s_title.title}}</a>
+<br><br>
+{% endfor %}
+{% if searchtext %}
+<b>Content Matches:</b><br>
+{% endif %}
+{% for s_text in searchtext %}
+{{s_text.date|date:"D, j M y - H:m"}}
+<br><a href="/alpha/posting/{{s_text.slug}}">{{s_text.title}}</a>
+<br><br>
+{% endfor %}
+{% endif %}
+</div>
+
+{% endblock %}

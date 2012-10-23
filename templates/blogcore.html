@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block style %}
+#logo {width: 100px;
+	height: 100px;
+	position: absolute;
+	left: 0%;
+	top: 0px;
+	margin-left: 0px;}
+#linkbox {width: 120px;
+	height: 50px;
+	position: absolute;
+	left: 0%;
+	top: 34px;
+	margin-left: 970px;}
+#searchbox {width: 300px;
+	height: 50px;
+	position: absolute;
+	left: 0%;
+	top: 30px;
+	margin-left: 1100px;}
+#catbox {width: 200px;
+	height: 300px;
+	border: 1px solid #888888;
+	position: absolute;
+	left: 10px;
+	top: 100px;}
+#field {width: 1200px;
+	position: absolute;
+	left: 0%;
+	top: 100px;
+	margin-left: 230px;}
+#tagsbox {position: absolute;
+	left: 0%;
+	top: 420px;
+	margin-left: 10px;
+	overflow: auto;}
+#archivebox {position: absolute;
+	left: 0%;
+	top: 470px;
+	margin-left: 10px;
+	overflow: auto;}
+#postbox {width: 1200px;
+	border: 1px solid #888888;}
+
+.shortwidth {width: 10px;
+	float: left;}
+
+.category {font-weight: bold;
+	font-size: 150%;
+	line-height: 10px;
+	padding: 0px 10px;}
+td {font-size: 75%;
+	padding: 0px 10px;}
+.tags {font-size: 75%;}
+a:link {color: #bbbbbb;
+	text-decoration: none;}
+a:visited {color: #bbbbbb;
+	text-decoration: none;}
+{% endblock %}
+
+{% block core %}
+<div id="linkbox">
+<a href="/alpha">Standard</a> | <a href="/alpha/random">Random</a>
+</div>
+<div id="searchbox">
+<form name="searchform" action="." method="post" id="searchform"><input type="text" size=20 maxLength=30 name="search">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Search"></form>
+</div>
+<div id="catbox">Categories
+<hr>
+{% for item in categories %}
+<a href="/alpha/category/{{item|slugify}}"><div class="shortwidth"><div id="{{item|slugify}}">&nbsp;</div></div><div class="category">{{item}}</div></a>
+<br>
+{% endfor %}
+</div>
+{% block content %}
+{% endblock %}
+</div>
+<div id="tagsbox">
+Tags
+<hr>
+<form name=tagSelect action="." method=POST>
+<select name=tagterm size=1 onChange="tagSelect.submit();">
+    <option value="" SELECTED>Choose One 
+
+{% for tag in tags %}
+<option value="{{tag.tag|slugify}}">{{tag.tag}} ({{tag.tagcount}})
+{% endfor %}
+</select>
+</form>
+</div>
+<div id="archivebox">
+Archive
+<hr>
+<form name=archiveSelect action="." method=POST>
+<select name=archiveterm size=1 onChange="archiveSelect.submit();">
+    <option value="" SELECTED>Choose One
+
+{% for month in archive %}
+<option value="{{month|date:"F-Y"}}">{{month|date:"F Y"}}
+{% endfor %}
+</div>
+{% endblock %}
