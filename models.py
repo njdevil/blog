@@ -1,12 +1,20 @@
 from django.db import models
 
-class Tag(models.Model):
-        tag=models.CharField(max_length=40)
-        class Meta:
-                ordering=('tag',)
+class Category(models.Model):
+    category=models.CharField(max_length=50)
+    class Meta:
+        ordering=('category',)
 
-        def __unicode__(self):
-                return self.tag
+    def __unicode__(self):
+        return self.category
+
+class Tag(models.Model):
+    tag=models.CharField(max_length=40)
+    class Meta:
+        ordering=('tag',)
+
+    def __unicode__(self):
+        return self.tag
 
 class Post(models.Model):
 	category=models.ForeignKey(Category)

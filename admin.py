@@ -1,5 +1,8 @@
-from models import Post, Tag, Comment
+from models import Post, Tag, Comment, Category
 from django.contrib import admin
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display=('id','category')
 
 class PostAdmin(admin.ModelAdmin):
 	prepopulated_fields={"slug":("title",)}
@@ -11,6 +14,7 @@ class TagAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
 	list_display=('id','title','date','approved')
 
+admin.site.register(Category,CategoryAdmin)
 admin.site.register(Post,PostAdmin)
 admin.site.register(Tag,TagAdmin)
 admin.site.register(Comment,CommentAdmin)
