@@ -1,3 +1,10 @@
+###########
+# Blog v2
+# copyright 2010, Modular Programming Systems Inc
+# released as GPL3
+#
+###########
+
 from models import Post, Tag, Comment, Category
 from django.contrib import admin
 

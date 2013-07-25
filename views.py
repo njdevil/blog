@@ -1,3 +1,10 @@
+###########
+# Blog v2
+# copyright 2010, Modular Programming Systems Inc
+# released as GPL3
+#
+###########
+
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.defaultfilters import slugify

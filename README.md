@@ -21,3 +21,7 @@ Requisites:
 * Apache 2.x
 * MySQL 5.x
 * Django 1.1 
+
+GPL
+----------
+This code is released as GPL3 and is copyright 2010 by Modular Programming Systems Inc.
